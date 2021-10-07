@@ -4,7 +4,7 @@ public class Registradora {
     public static void main(String[] args) {
        primeiroBug();
 
-      //  segundoBug();
+       segundoBug();
 
       // terceiroBug();
 
@@ -33,6 +33,7 @@ public class Registradora {
 
         return precoItem;
     }
+
     // correcao: na classe RelacaoPesoPreco o item da linha 22 estava como sanduba ao inves de sanduiche
     private static void primeiroBug() {
         DataProjeto.criarDataComCozinhaFuncionando();
@@ -44,6 +45,9 @@ public class Registradora {
         System.out.println(String.format("Valor total: %.2f", precoTotal));
     }
 
+    // correcao: 1) cálculo de valor da torta na classe RelacaoPesoPreco se faz necessario o metodo double na divisao de
+    // inteiros. 2) há uma divergencia no uso da variavel tortas, recebendo tanto a quantidade de tortas como de fatias
+    // sendo criado entao a variavel fatiasTortas na classe ItensPorQuantidade.
     private static void segundoBug() {
         DataProjeto.criarDataComCozinhaEncerradaMasComDiaUtil();
         String item = "torta";
@@ -53,6 +57,7 @@ public class Registradora {
 
         System.out.println(String.format("Valor total: %.2f", precoTotal));
     }
+
 
     private static void terceiroBug() {
         DataProjeto.criarDataComCozinhaFuncionando();
