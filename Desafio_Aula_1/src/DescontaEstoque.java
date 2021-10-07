@@ -29,39 +29,12 @@ public class DescontaEstoque {
 
     }
 
-    static void mostrarEstoque(String item) {
-
-
-        if ("pao".equals(item)) {
-            System.out.println("Estoque atual de pao: " + ItensPorQuantidade.pao);
-        }
-
-        if ("torta".equals(item)) {
-            System.out.println("Estoque atual de fatias torta: " + ItensPorQuantidade.fatiasTorta);
-        }
-
-        if ("leite".equals(item)) {
-            System.out.println("Estoque atual de leite: " + ItensPorQuantidade.leite);
-        }
-
-        if ("cafe".equals(item)) {
-            System.out.println("Estoque atual de cafe: " + ItensPorQuantidade.cafe);
-
-        }
-
-        if ("sanduiche".equals(item)) {
-            System.out.println("Estoque atual de sanduiche: " + ItensPorQuantidade.sanduiche);
-        }
-
-
-    }
-
     static int getEstoque(String item) {
 
         int estoqueAtual = 0;
 
         if ("pao".equals(item)) {
-            estoqueAtual = ItensPorQuantidade.pao;
+            estoqueAtual = ItensPorQuantidade.pao / 60;
 
             return estoqueAtual;
         }
