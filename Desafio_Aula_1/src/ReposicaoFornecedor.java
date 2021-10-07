@@ -11,6 +11,7 @@ public class ReposicaoFornecedor {
 
         if ("cafe".equals(item)) {
             ItensPorQuantidade.cafe = random.nextInt(40) + 10;
+
         }
     }
 }

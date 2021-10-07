@@ -2,11 +2,14 @@
 public class Registradora {
 
     public static void main(String[] args) {
-       primeiroBug();
+      primeiroBug(); // correcao: na classe RelacaoPesoPreco o item da linha 22 estava como sanduba ao inves de sanduiche
 
-       segundoBug();
+      segundoBug(); // correcao: 1) cálculo de valor da torta na classe RelacaoPesoPreco se faz necessario o metodo double na divisao de
+                       // inteiros. 2) há uma divergencia no uso da variavel tortas, recebendo tanto a quantidade de tortas como de fatias
+                       // sendo criado entao a variavel fatiasTortas na classe ItensPorQuantidade.
 
-      // terceiroBug();
+       terceiroBug(); // Na classe QuantidadeMinimaItens os retornos de cafe e leite estavam invertidos, bem como cafe com acento na classe
+                      // RelacaoPesoPreco. Criado classe para desconto do estoque.
 
       // quartoBug();
 
@@ -18,6 +21,8 @@ public class Registradora {
     private static double registrarItem(String item, int quantidade) {
         double precoItem = RelacaoPesoPreco.retornaPrecoProduto(item, quantidade);
 
+        DescontaEstoque.descontarItem(item, quantidade);
+
         if (QuantidadeMinimaItem.precisaReposicao(item)) {
             if ("pao".equals(item) || "sanduiche".equals(item) || "torta".equals(item)) {
                 if (!DataProjeto.cozinhaEmFuncionamento()) {
@@ -28,13 +33,16 @@ public class Registradora {
 
             if ("leite".equals(item) || "cafe".equals(item)) {
                 ReposicaoFornecedor.reporItem(item);
+
             }
+
         }
+        System.out.println("-------------------");
+        DescontaEstoque.mostrarEstoque(item);
 
         return precoItem;
     }
 
-    // correcao: na classe RelacaoPesoPreco o item da linha 22 estava como sanduba ao inves de sanduiche
     private static void primeiroBug() {
         DataProjeto.criarDataComCozinhaFuncionando();
         String item = "sanduiche";
@@ -42,12 +50,10 @@ public class Registradora {
 
         double precoTotal = registrarItem(item, quantidade);
 
+        System.out.println(String.format("---Primeiro Bug---"));
         System.out.println(String.format("Valor total: %.2f", precoTotal));
     }
 
-    // correcao: 1) cálculo de valor da torta na classe RelacaoPesoPreco se faz necessario o metodo double na divisao de
-    // inteiros. 2) há uma divergencia no uso da variavel tortas, recebendo tanto a quantidade de tortas como de fatias
-    // sendo criado entao a variavel fatiasTortas na classe ItensPorQuantidade.
     private static void segundoBug() {
         DataProjeto.criarDataComCozinhaEncerradaMasComDiaUtil();
         String item = "torta";
@@ -55,9 +61,9 @@ public class Registradora {
 
         double precoTotal = registrarItem(item, quantidade);
 
+        System.out.println(String.format("---Segundo Bug---"));
         System.out.println(String.format("Valor total: %.2f", precoTotal));
     }
-
 
     private static void terceiroBug() {
         DataProjeto.criarDataComCozinhaFuncionando();
@@ -66,6 +72,7 @@ public class Registradora {
 
         double precoTotal = registrarItem(item, quantidade);
 
+        System.out.println(String.format("---Terceiro Bug---"));
         System.out.println(String.format("Valor total: %.2f", precoTotal));
     }
 
@@ -77,6 +84,7 @@ public class Registradora {
 
         double precoTotal = registrarItem(item, quantidade);
 
+        System.out.println(String.format("---Quarto Bug---"));
         System.out.println(String.format("Valor total: %.2f", precoTotal));
 
         // Cliente 2
@@ -95,6 +103,7 @@ public class Registradora {
 
         double precoTotal = registrarItem(item, quantidade);
 
+        System.out.println(String.format("---Quinto Bug---"));
         System.out.println(String.format("Valor total: %.2f", precoTotal));
     }
 
@@ -114,6 +123,7 @@ public class Registradora {
 
         double precoTotal2 = registrarItem(item2, quantidade2);
 
+        System.out.println(String.format("---Sexto Bug---"));
         System.out.println(String.format("Valor total: %.2f", precoTotal2));
     }
 
