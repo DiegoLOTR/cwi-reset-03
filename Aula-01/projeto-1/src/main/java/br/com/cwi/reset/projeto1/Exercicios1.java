@@ -5,34 +5,31 @@ import java.util.List;
 
 public class Exercicios1 {
 
-    public Integer somarLista(List<Integer> numeros)
-    {   Integer resultado = 0;
+    public Integer somarLista(List<Integer> numeros) {
+     Integer resultado = 0;
 
-        for (int i = 0; i < numeros.size(); i++) {
-            resultado = resultado + numeros.get(i);
+        for (Integer numero : numeros) {
+            resultado += numero;
         }
 
         return resultado;
     }
 
     public Double calcularMedia(List<Integer> numeros) {
-        Integer resultado = 0;
         double media = 0.0;
 
-        for (int i = 0; i < numeros.size(); i++) {
-            resultado = resultado + numeros.get(i);
-        }
-        media = resultado / numeros.size();
+        media = ((double) somarLista(numeros) / numeros.size());
+
         return media;
     }
 
     public Integer obterMaiorNumero(List<Integer> numeros) {
         Integer maiorNumero = 0;
 
-        for (int i = 0; i < numeros.size(); i++) {
+        for (Integer numero : numeros) {
 
-            if (numeros.get(i) > maiorNumero ){
-                maiorNumero = numeros.get(i);
+            if (numero > maiorNumero ){
+                maiorNumero = numero;
             }
         }
 
@@ -40,20 +37,31 @@ public class Exercicios1 {
     }
 
     public String obterPalavraInvertida(String palavra) {
-        String palavraInvertida = palavra;
-        char aux;
-        palavraInvertida.charAt(2) = a';
-        for (int i = 0; i < palavra.length(); i++) {
-            aux = palavra.charAt(i);
+        String palavraInvertida = "";
 
-
+        for (int i = palavra.length() -1 ; i >=0 ; i--) {
+           palavraInvertida += palavra.charAt(i);
         }
 
         return palavraInvertida ;
     }
 
     public List<Integer> ordenarLista(List<Integer> numeros) {
-        return Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer>numerosOrdenados = numeros;
+        Integer tempNumero = 0;
+
+        for(int i=0;i<numerosOrdenados.size();i++){
+            for(int j=i+1;j<numerosOrdenados.size();j++){
+
+                if(numerosOrdenados.get(i) > numerosOrdenados.get(j)  ){
+                    tempNumero = numerosOrdenados.get(j);
+                    numerosOrdenados.set(j,numerosOrdenados.get(i));
+                    numerosOrdenados.set(i,tempNumero);
+                }
+            }
+        }
+
+        return numerosOrdenados;
     }
 }
 
