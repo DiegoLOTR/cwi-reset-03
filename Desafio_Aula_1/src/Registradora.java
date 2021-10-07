@@ -11,9 +11,9 @@ public class Registradora {
        terceiroBug(); // Na classe QuantidadeMinimaItens os retornos de cafe e leite estavam invertidos, bem como cafe com acento na classe
                       // RelacaoPesoPreco. Criado classe para desconto do estoque.
 
-      // quartoBug();
+      quartoBug(); // comparador de quantidade minima de sanduiches na classe QuantidadeMinimaItem alterado de == para <=
 
-      // quintoBug();
+      //quintoBug();
 
       // sextoBug();
     }
