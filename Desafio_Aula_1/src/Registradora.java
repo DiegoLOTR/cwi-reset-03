@@ -13,9 +13,9 @@ public class Registradora {
 
       quartoBug(); // comparador de quantidade minima de sanduiches na classe QuantidadeMinimaItem alterado de == para <=
 
-      //quintoBug();
+      quintoBug(); // na classe RelacaoPesoPreco se faz necessario o metodo double na divisao de inteiros
 
-      // sextoBug();
+      //sextoBug();
     }
 
     private static double registrarItem(String item, int quantidade) {
