@@ -31,6 +31,7 @@ public class DescontaEstoque {
 
     static void mostrarEstoque(String item) {
 
+
         if ("pao".equals(item)) {
             System.out.println("Estoque atual de pao: " + ItensPorQuantidade.pao);
         }
@@ -45,6 +46,7 @@ public class DescontaEstoque {
 
         if ("cafe".equals(item)) {
             System.out.println("Estoque atual de cafe: " + ItensPorQuantidade.cafe);
+
         }
 
         if ("sanduiche".equals(item)) {
@@ -52,5 +54,42 @@ public class DescontaEstoque {
         }
 
 
+    }
+
+    static int getEstoque(String item) {
+
+        int estoqueAtual = 0;
+
+        if ("pao".equals(item)) {
+            estoqueAtual = ItensPorQuantidade.pao;
+
+            return estoqueAtual;
+        }
+
+        if ("torta".equals(item)) {
+            estoqueAtual = ItensPorQuantidade.fatiasTorta;
+
+            return estoqueAtual;
+        }
+
+        if ("leite".equals(item)) {
+            estoqueAtual = ItensPorQuantidade.leite;
+
+            return estoqueAtual;
+        }
+
+        if ("cafe".equals(item)) {
+            estoqueAtual = ItensPorQuantidade.cafe;
+
+            return estoqueAtual;
+        }
+
+        if ("sanduiche".equals(item)) {
+            estoqueAtual = ItensPorQuantidade.sanduiche;
+
+            return estoqueAtual;
+        }
+
+        return 0;
     }
 }
