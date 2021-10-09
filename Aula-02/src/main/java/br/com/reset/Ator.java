@@ -1,19 +1,15 @@
 package br.com.reset;
 
-public class Ator {
-    private String nome;
-    private int idade;
-    private int nrOscarVencido;
-    private TipoGenero genero;
+public class Ator extends Pessoa {
 
-    public Ator(String nome, int idade, int nrOscarVencido, TipoGenero genero) {
-        this.nome = nome;
-        this.idade = idade;
+   private int nrOscarVencido;
+
+    public Ator(String nome, int idade, TipoGenero genero, int nrOscarVencido) {
+        super (nome,idade, genero);
         this.nrOscarVencido = nrOscarVencido;
-        this.genero = genero;
     }
 
-    public void imprimirDados(){
-            System.out.println("*Nome :" + nome + " *Idade: " + idade + " *Genero: " + genero.getGenero() );
+   public int getNrOscarVencido() {
+      return nrOscarVencido;
     }
 }

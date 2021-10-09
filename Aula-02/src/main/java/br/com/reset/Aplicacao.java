@@ -4,11 +4,11 @@ public class Aplicacao {
 
     public static void main(String[] args) {
 
-        Diretor diretor1 = new Diretor("Steven Sp.", 58,17,TipoGenero.MASCULINO);
+        Diretor diretor1 = new Diretor("Joao",32, TipoGenero.MASCULINO, 2);
 
-        Diretor diretor2 = new Diretor("Maria", 38,1, TipoGenero.FEMININO);
+        Diretor diretor2 = new Diretor("Maria", 38,TipoGenero.FEMININO, 5);
 
-        Ator ator1 = new Ator ("Viggo",51,14,TipoGenero.MASCULINO);
+        Ator ator1 = new Ator ("Viggo",25, TipoGenero.MASCULINO, 5);
 
         Filme filme1 = new Filme("Resgate Soldado Ryan", "Filme Segunda Guera Mundial", 240
                 ,2008, 5.0,diretor1);
@@ -22,7 +22,7 @@ public class Aplicacao {
         System.out.println("-------");
 
         ator1.imprimirDados();
-        diretor2.imprimirDados();
+        diretor1.imprimirDados();
 
 
 
