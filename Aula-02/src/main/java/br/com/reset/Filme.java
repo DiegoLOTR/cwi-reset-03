@@ -20,7 +20,7 @@ public class Filme {
     }
 
     public void reproduzir (){
-        System.out.println("*Nome :" + nome + " *Descrição: " + descricao + " *Duração: " + duracao + " min." + " *Diretor: " + diretor.getNomeDiretor());
+        System.out.println("*Nome :" + nome + " *Descrição: " + descricao + " *Duração: " + duracao + " min." + " *Diretor: " + diretor.getNome());
     }
 
 

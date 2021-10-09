@@ -1,27 +1,32 @@
 package br.com.reset;
 
 public class Diretor {
-    private String nomeDiretor;
-    private int idadeDiretor;
-    private int qtdFilmesDiretor;
+    private String nome;
+    private int idade;
+    private int qtdFilmes;
+    private TipoGenero genero;
 
-    public Diretor(String nomeDiretor, int idadeDiretor, int qtdFilmesDiretor) {
-        this.nomeDiretor = nomeDiretor;
-        this.idadeDiretor = idadeDiretor;
-        this.qtdFilmesDiretor = qtdFilmesDiretor;
+    public Diretor(String nome, int idade, int qtdFilmes, TipoGenero genero) {
+        this.nome = nome;
+        this.idade = idade;
+        this.qtdFilmes = qtdFilmes;
+        this.genero = genero;
     }
 
-    public String getNomeDiretor() {
-        return nomeDiretor;
+    public String getNome() {
+        return nome;
     }
 
-    public int getIdadeDiretor() {
-        return idadeDiretor;
+    public int getIdade() {
+        return idade;
     }
 
-    public int getQtdFilmesDiretor() {
-        return qtdFilmesDiretor;
+    public int getQtdFilmes() {
+        return qtdFilmes;
     }
 
+    public void imprimirDados(){
+        System.out.println("*Nome :" + nome + " *Idade: " + idade + " *Genero: " + genero.getGenero() );
+    }
 
 }
