@@ -1,11 +1,13 @@
 package br.com.reset;
 
+import java.time.LocalDate;
+
 public class Diretor extends Pessoa {
 
    private int qtdFilmes;
 
-    public Diretor(String nome, int idade, TipoGenero genero, int qtdFilmes) {
-        super (nome,idade, genero);
+    public Diretor(String nome, LocalDate dataNascimento, TipoGenero genero, int qtdFilmes) {
+        super (nome,dataNascimento, genero);
         this.qtdFilmes = qtdFilmes;
     }
 

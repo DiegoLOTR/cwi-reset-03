@@ -1,14 +1,17 @@
 package br.com.reset;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 public class Pessoa {
 
     private String nome;
-    private int idade;
+    private LocalDate dataNascimento;
     private TipoGenero genero;
 
-    public Pessoa(String nome, int idade, TipoGenero genero) {
+    public Pessoa(String nome, LocalDate dataNascimento, TipoGenero genero) {
         this.nome = nome;
-        this.idade = idade;
+        this.dataNascimento = dataNascimento;
         this.genero = genero;
     }
 
@@ -17,6 +20,14 @@ public class Pessoa {
     }
 
     public void imprimirDados(){
-        System.out.println("*Nome :" + nome + " *Idade: " + idade + " *Genero: " + genero.getGenero() );
+        System.out.println("*Nome :" + nome + " *Data Nasc.: " + dataNascimento + " *Genero: " + genero.getGenero() );
+    }
+
+    public void calcularIdade (){
+        LocalDate hoje = LocalDate.now();
+
+        long anos = this.dataNascimento.until(hoje, ChronoUnit.YEARS);
+
+        System.out.println("A idade de " + nome +  " é: " + anos + " anos.");
     }
 }
