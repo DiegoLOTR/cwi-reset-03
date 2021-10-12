@@ -6,9 +6,10 @@ public class DadosPessoas {
 
    private String nome;
    private LocalDate dataNascimento;
-   private int anoInicioAtividade;
+   private Integer anoInicioAtividade;
 
-    public DadosPessoas(String nome, LocalDate dataNascimento, int anoInicioAtividade) {
+
+    public DadosPessoas(String nome, LocalDate dataNascimento, Integer anoInicioAtividade) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.anoInicioAtividade = anoInicioAtividade;
@@ -35,7 +36,7 @@ public class DadosPessoas {
         this.dataNascimento = dataNascimento;
     }
 
-    public void setAnoInicioAtividade(int anoInicioAtividade) {
+    public void setAnoInicioAtividade(Integer anoInicioAtividade) {
         this.anoInicioAtividade = anoInicioAtividade;
     }
 }

@@ -6,7 +6,7 @@ public class AtorRequest extends DadosPessoas{
 
     private StatusCarreira statusCarreira;
 
-    public AtorRequest(String nome, LocalDate dataNascimento, int anoInicioAtividade, StatusCarreira statusCarreira) {
+    public AtorRequest(String nome, LocalDate dataNascimento, Integer anoInicioAtividade, StatusCarreira statusCarreira) {
         super(nome, dataNascimento, anoInicioAtividade);
         this.statusCarreira = statusCarreira;
     }

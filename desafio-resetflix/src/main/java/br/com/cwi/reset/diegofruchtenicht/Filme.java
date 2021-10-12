@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Filme {
 
-    private int id;
+    private Integer id;
     private String nome;
     private int anoLancamento;
     private String capaFilme;

@@ -4,10 +4,10 @@ import java.time.LocalDate;
 
 public class Ator extends DadosPessoas{
 
-    private int id;
+    private Integer id;
     private StatusCarreira statusCarreira;
 
-    public Ator(String nome, LocalDate dataNascimento, int anoInicioAtividade, int id, StatusCarreira statusCarreira) {
+    public Ator(String nome, LocalDate dataNascimento, Integer anoInicioAtividade, Integer id, StatusCarreira statusCarreira) {
         super(nome, dataNascimento, anoInicioAtividade);
         this.id = id;
         this.statusCarreira = statusCarreira;
@@ -21,7 +21,7 @@ public class Ator extends DadosPessoas{
         return statusCarreira;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

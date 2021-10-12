@@ -4,10 +4,18 @@ import java.time.LocalDate;
 
 public class Diretor extends DadosPessoas{
 
-    private int id;
+    private Integer id;
 
-    public Diretor(String nome, LocalDate dataNascimento, int anoInicioAtividade, int id) {
+    public Diretor(String nome, LocalDate dataNascimento, Integer anoInicioAtividade, Integer id) {
         super (nome, dataNascimento, anoInicioAtividade);
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
     }
 }
