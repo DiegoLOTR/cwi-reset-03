@@ -8,9 +8,6 @@ public class AtorEmAtividade {
     private String nome;
     private LocalDate dataNascimento;
 
-    public AtorEmAtividade() {
-    }
-
     public AtorEmAtividade(Integer id, String nome, LocalDate dataNascimento) {
         this.id = id;
         this.nome = nome;

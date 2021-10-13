@@ -25,7 +25,7 @@ public class DiretorService {
             throw new DadosObrigatoriosException("Campo obrigatório não informado. Favor informar o campo {Nome}.");
         }else if(diretorRequest.getDataNascimento() == null){
             throw new DadosObrigatoriosException("Campo obrigatório não informado. Favor informar o campo {Data Nascimento}.");
-        }else if(diretorRequest.getAnoInicioAtividade() == 0){
+        }else if(diretorRequest.getAnoInicioAtividade() == null){
             throw new DadosObrigatoriosException("Campo obrigatório não informado. Favor informar o campo {Ano Início Atividade}.");
         }
 

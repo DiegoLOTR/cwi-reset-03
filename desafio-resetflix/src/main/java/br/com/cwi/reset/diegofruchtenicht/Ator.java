@@ -13,7 +13,7 @@ public class Ator extends DadosPessoas{
         this.statusCarreira = statusCarreira;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

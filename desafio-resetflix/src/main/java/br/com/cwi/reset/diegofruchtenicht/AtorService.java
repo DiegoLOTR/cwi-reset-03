@@ -26,7 +26,7 @@ public class AtorService {
             throw new DadosObrigatoriosException("Campo obrigatório não informado. Favor informar o campo {Nome}.");
         }else if(atorRequest.getDataNascimento() == null){
             throw new DadosObrigatoriosException("Campo obrigatório não informado. Favor informar o campo {Data Nascimento}.");
-        }else if(atorRequest.getAnoInicioAtividade() == 0){
+        }else if(atorRequest.getAnoInicioAtividade() == null){
             throw new DadosObrigatoriosException("Campo obrigatório não informado. Favor informar o campo {Ano Início Atividade}.");
         }else if(atorRequest.getStatusCarreira() == null){
             throw new DadosObrigatoriosException("Campo obrigatório não informado. Favor informar o campo {Status Carreira}.");
@@ -67,7 +67,6 @@ public class AtorService {
         // Salva no Banco de Dados
         fakeDatabase.persisteAtor(new Ator(atorRequest.getNome(),atorRequest.getDataNascimento(),atorRequest.getAnoInicioAtividade(),lastID,atorRequest.getStatusCarreira()));
 
-
     }
 
    public List listarAtoresEmAtividade (String filtroNome) throws DadosObrigatoriosException{
@@ -82,12 +81,8 @@ public class AtorService {
               for (int i=0 ; i < atores.size() ; i++){
 
                   if(atores.get(i).getStatusCarreira() == StatusCarreira.EM_ATIVIDADE){
-                      AtorEmAtividade auxAtorEmAtividade = new AtorEmAtividade ();
-                      auxAtorEmAtividade.setId(atores.get(i).getId());
-                      auxAtorEmAtividade.setNome(atores.get(i).getNome());
-                      auxAtorEmAtividade.setDataNascimento(atores.get(i).getDataNascimento());
-
-                      atorEmAtividade.add(auxAtorEmAtividade);
+                      AtorEmAtividade atorFiltradoAtividade = new AtorEmAtividade (atores.get(i).getId(),atores.get(i).getNome(),atores.get(i).getDataNascimento());
+                      atorEmAtividade.add(atorFiltradoAtividade);
                   }
               }
 
@@ -100,12 +95,8 @@ public class AtorService {
               for(int i =0 ; i < atores.size() ; i++){
 
                   if(atores.get(i).getNome().contains(filtroNome) && (atores.get(i).getStatusCarreira() == StatusCarreira.EM_ATIVIDADE)){
-                      AtorEmAtividade auxAtorEmAtividade2 = new AtorEmAtividade ();
-                      auxAtorEmAtividade2.setId(atores.get(i).getId());
-                      auxAtorEmAtividade2.setNome(atores.get(i).getNome());
-                      auxAtorEmAtividade2.setDataNascimento(atores.get(i).getDataNascimento());
-
-                      atorEmAtividade.add(auxAtorEmAtividade2);
+                      AtorEmAtividade atorFiltradoNome = new AtorEmAtividade (atores.get(i).getId(),atores.get(i).getNome(),atores.get(i).getDataNascimento());
+                      atorEmAtividade.add(atorFiltradoNome);
                   }
               }
 
@@ -136,11 +127,9 @@ public class AtorService {
                 }
             }
         }
-            if(!idEncontrado){
-                throw new DadosObrigatoriosException("Nenhum ator encontrado com o parâmetro id={"+ id +"}, favor verifique os parâmetros informados.");
-            }else{
 
-
+        if(!idEncontrado){
+            throw new DadosObrigatoriosException("Nenhum ator encontrado com o parâmetro id={"+ id +"}, favor verifique os parâmetros informados.");
         }
 
      return null;
@@ -151,7 +140,6 @@ public class AtorService {
        atores = fakeDatabase.recuperaAtores();
 
        if(atores.size()>0){
-
            return atores;
 
        }else{

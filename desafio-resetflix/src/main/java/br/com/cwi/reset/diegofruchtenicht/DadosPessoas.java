@@ -23,7 +23,7 @@ public class DadosPessoas {
         return dataNascimento;
     }
 
-    public int getAnoInicioAtividade() {
+    public Integer getAnoInicioAtividade() {
         return anoInicioAtividade;
     }
 

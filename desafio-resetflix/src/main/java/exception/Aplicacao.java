@@ -18,19 +18,19 @@ public class Aplicacao {
         // CRIAR ATORES
             System.out.println("********** ATORES **********");
             //exception nome nulo Ator
-            //AtorRequest actorRequest = new AtorRequest("",LocalDate.of(1989,11,12),2021, StatusCarreira.APOSENTADO);
+            //AtorRequest atorRequest = new AtorRequest("",LocalDate.of(1989,11,12),2021, StatusCarreira.APOSENTADO);
             //exception Data Nascimento nulo Ator
-            //AtorRequest actorRequest = new AtorRequest("Joao Silva",null ,2021, StatusCarreira.APOSENTADO);
+            //AtorRequest atorRequest = new AtorRequest("Joao Silva",null ,2021, StatusCarreira.APOSENTADO);
             //exception Ano Inicio nulo Ator
-            //AtorRequest actorRequest = new AtorRequest("Joao Silva",LocalDate.of(1989,11,12),null, StatusCarreira.APOSENTADO);
+            //AtorRequest atorRequest = new AtorRequest("Joao Silva",LocalDate.of(1989,11,12),null, StatusCarreira.APOSENTADO);
             //exception Status Carreira nulo Ator
-            //AtorRequest actorRequest = new AtorRequest("Joao Silva",LocalDate.of(1989,11,12),2021, null);
+            //AtorRequest atorRequest = new AtorRequest("Joao Silva",LocalDate.of(1989,11,12),2021, null);
             //exception Nome e Sobrenome Ator
-            //AtorRequest actorRequest = new AtorRequest("Joao",LocalDate.of(1989,11,12),2021, StatusCarreira.APOSENTADO);
+            //AtorRequest atorRequest = new AtorRequest("Joao",LocalDate.of(1989,11,12),2021, StatusCarreira.APOSENTADO);
             //exception Data Nascimento maior que data atual
-            //AtorRequest actorRequest = new AtorRequest("Joao Silva",LocalDate.of(2021,11,12),2021, StatusCarreira.APOSENTADO);
+            //AtorRequest atorRequest = new AtorRequest("Joao Silva",LocalDate.of(2021,11,12),2021, StatusCarreira.APOSENTADO);
             //exception Ano Inicio Maior anterior a data de Nascimento
-            //AtorRequest actorRequest = new AtorRequest("Joao Silva",LocalDate.of(1989,11,12),1988, StatusCarreira.APOSENTADO);
+            //AtorRequest atorRequest = new AtorRequest("Joao Silva",LocalDate.of(1989,11,12),1988, StatusCarreira.APOSENTADO);
 
            AtorRequest atorRequest = new AtorRequest("Joao M. Silva",LocalDate.of(1989,11,12),2021, StatusCarreira.EM_ATIVIDADE);
            atorService.criarAtor(atorRequest);
@@ -55,7 +55,7 @@ public class Aplicacao {
             //Ator em Atividade SEM Filtro
             //atorEmAtividade = atorService.listarAtoresEmAtividade("");
             //Ator em Atividade COM Filtro
-            atorEmAtividade = atorService.listarAtoresEmAtividade("Mar");
+            atorEmAtividade = atorService.listarAtoresEmAtividade("M");
             System.out.println("-------------------------");
                  for (AtorEmAtividade ator : atorEmAtividade) {
                      System.out.println("Lista de Atores em Atividade: " + ator.getNome());
@@ -107,7 +107,7 @@ public class Aplicacao {
             //Diretor SEM Filtro
             List <Diretor> listaDiretores = diretorService.listarDiretores("");
             //Diretor COM Filtro
-            //List <Diretor> listaDiretores = diretorService.listarDiretores("N");
+            //List <Diretor> listaDiretores = diretorService.listarDiretores("g");
             for (Diretor diretor : listaDiretores) {
                 System.out.println("Lista de Diretores ID: " + diretor.getId());
                 System.out.println("Lista de Diretores Nome: " + diretor.getNome());
