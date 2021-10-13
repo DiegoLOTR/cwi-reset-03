@@ -10,13 +10,17 @@ public class Filme {
    private Diretor diretor;
 
 
-    public Filme(String nome, String descricao, int duracao, int anoLancamento, double avaliacao, Diretor diretor) {
+    public Filme(String nome, String descricao, int duracao, int anoLancamento, double avaliacao, Diretor diretor) throws AvaliacaoForaLimitesException {
         this.nome = nome;
         this.descricao = descricao;
         this.duracao = duracao;
         this.anoLancamento = anoLancamento;
         this.avaliacao = avaliacao;
         this.diretor = diretor;
+
+        if (avaliacao < 1 || avaliacao > 5){
+            throw new AvaliacaoForaLimitesException("Avaliação Fora dos Limites [1 a 5]");
+        }
     }
 
     public void reproduzir (){

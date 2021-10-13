@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Aplicacao {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AvaliacaoForaLimitesException {
 
         Diretor diretor1 = new Diretor("Joao", LocalDate.of(1989,05,6), TipoGenero.MASCULINO, 2);
 
