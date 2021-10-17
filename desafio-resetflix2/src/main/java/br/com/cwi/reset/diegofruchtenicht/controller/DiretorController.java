@@ -7,7 +7,6 @@ import br.com.cwi.reset.diegofruchtenicht.request.DiretorRequest;
 import br.com.cwi.reset.diegofruchtenicht.service.DiretorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
