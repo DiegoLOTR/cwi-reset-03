@@ -6,8 +6,6 @@ import br.com.cwi.reset.diegofruchtenicht.exception.*;
 import br.com.cwi.reset.diegofruchtenicht.model.Ator;
 import br.com.cwi.reset.diegofruchtenicht.model.StatusCarreira;
 import br.com.cwi.reset.diegofruchtenicht.request.AtorRequest;
-
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +13,16 @@ import java.util.List;
 public class AtorService {
 
     List<Ator> atores = new ArrayList<>();
+
     private FakeDatabase fakeDatabase;
 
     public AtorService(FakeDatabase fakeDatabase) {
         this.fakeDatabase = fakeDatabase;
     }
 
-
     public void criarAtor (AtorRequest atorRequest) throws CamposObrigatoriosException, NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
-
         atores = fakeDatabase.recuperaAtores();
+
         LocalDate hoje = LocalDate.now();
 
         //exception campos nulos
@@ -61,31 +59,28 @@ public class AtorService {
         }
 
         //Obtem ultimo ID
-        int lastID;
+        int ultimoId;
 
             if (atores.size() > 0){
-                lastID = atores.get(atores.size()-1).getId();
-                lastID ++;
+                ultimoId = atores.get(atores.size()-1).getId();
+                ultimoId ++;
             }else{
-                lastID = 0;
+                ultimoId = 0;
             }
 
         // Salva no Banco de Dados
-        fakeDatabase.persisteAtor(new Ator(atorRequest.getNome(),atorRequest.getDataNascimento(),atorRequest.getAnoInicioAtividade(),lastID,atorRequest.getStatusCarreira()));
+        fakeDatabase.persisteAtor(new Ator(atorRequest.getNome(),atorRequest.getDataNascimento(),atorRequest.getAnoInicioAtividade(),ultimoId,atorRequest.getStatusCarreira()));
 
     }
 
-   public List listarAtoresEmAtividade (String filtroNome) throws CamposObrigatoriosException, FiltroNaoEncontradoException, NaoCadastradoException, NenhumAtorAtividade {
-
+    public List listarAtoresEmAtividade (String filtroNome) throws CamposObrigatoriosException, FiltroNaoEncontradoException, NaoCadastradoException, NenhumAtorAtividade {
       atores = fakeDatabase.recuperaAtores();
+
       List <AtorEmAtividade> atorEmAtividade = new ArrayList<>();
 
       if(atores.size()>0){
-
           if(filtroNome.equals("") || filtroNome.equals(null)){
-
               for (int i=0 ; i < atores.size() ; i++){
-
                   if(atores.get(i).getStatusCarreira() == StatusCarreira.EM_ATIVIDADE){
                       AtorEmAtividade atorFiltradoAtividade = new AtorEmAtividade (atores.get(i).getId(),atores.get(i).getNome(),atores.get(i).getDataNascimento());
                       atorEmAtividade.add(atorFiltradoAtividade);
@@ -97,9 +92,7 @@ public class AtorService {
               }
 
           }else{
-
               for(int i =0 ; i < atores.size() ; i++){
-
                   if(atores.get(i).getNome().contains(filtroNome) && (atores.get(i).getStatusCarreira() == StatusCarreira.EM_ATIVIDADE)){
                       AtorEmAtividade atorFiltradoNome = new AtorEmAtividade (atores.get(i).getId(),atores.get(i).getNome(),atores.get(i).getDataNascimento());
                       atorEmAtividade.add(atorFiltradoNome);
@@ -116,11 +109,12 @@ public class AtorService {
       }
 
      return atorEmAtividade;
-    }
 
-   public Ator consultarAtor (Integer id) throws CamposObrigatoriosException, IDNaoEncontradoException {
+   }
 
+    public Ator consultarAtor (Integer id) throws CamposObrigatoriosException, IDNaoEncontradoException {
         atores = fakeDatabase.recuperaAtores();
+
         boolean idEncontrado = false;
 
         if (id == null){
@@ -139,23 +133,18 @@ public class AtorService {
         }
 
      return null;
+
    }
 
-   public List consultarAtores () throws CamposObrigatoriosException, NaoCadastradoException {
-
+    public List consultarAtores () throws CamposObrigatoriosException, NaoCadastradoException {
        atores = fakeDatabase.recuperaAtores();
 
        if(atores.size()>0){
            return atores;
-
        }else{
            throw new NaoCadastradoException("ator", "atores");
        }
 
    }
-
-
-
-
 
 }

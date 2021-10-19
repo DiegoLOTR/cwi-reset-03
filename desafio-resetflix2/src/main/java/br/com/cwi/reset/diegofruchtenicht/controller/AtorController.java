@@ -8,7 +8,6 @@ import br.com.cwi.reset.diegofruchtenicht.response.AtorEmAtividade;
 import br.com.cwi.reset.diegofruchtenicht.service.AtorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController

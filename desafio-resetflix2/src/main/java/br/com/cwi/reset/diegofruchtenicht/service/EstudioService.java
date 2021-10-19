@@ -2,11 +2,8 @@ package br.com.cwi.reset.diegofruchtenicht.service;
 
 import br.com.cwi.reset.diegofruchtenicht.FakeDatabase;
 import br.com.cwi.reset.diegofruchtenicht.exception.*;
-import br.com.cwi.reset.diegofruchtenicht.model.Ator;
-import br.com.cwi.reset.diegofruchtenicht.model.Diretor;
 import br.com.cwi.reset.diegofruchtenicht.model.Estudio;
 import br.com.cwi.reset.diegofruchtenicht.request.EstudioRequest;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +11,16 @@ import java.util.List;
 public class EstudioService {
 
     List<Estudio> estudios = new ArrayList<>();
+
     private FakeDatabase fakeDatabase;
+
     public EstudioService (FakeDatabase fakeDatabase) {
         this.fakeDatabase = fakeDatabase;
     }
 
     public void criarEstudio (EstudioRequest estudioRequest) throws CamposObrigatoriosException, NomeJaCadastradoException, DataCriacaoEstudioException {
-
         estudios = fakeDatabase.recuperaEstudios();
+
         LocalDate hoje = LocalDate.now();
 
         //exception campos nulos
@@ -48,34 +47,30 @@ public class EstudioService {
         }
 
         //Obtem ultimo ID
-        int lastID;
+        int ultimoId;
 
         if (estudios.size() > 0){
-            lastID = estudios.get(estudios.size()-1).getId();
-            lastID ++;
+            ultimoId = estudios.get(estudios.size()-1).getId();
+            ultimoId ++;
         }else{
-            lastID = 0;
+            ultimoId = 0;
         }
 
         // Salva no Banco de Dados
-        fakeDatabase.persisteEstudio(new Estudio(lastID,estudioRequest.getNome(),estudioRequest.getDescricao(),estudioRequest.getDataCriacao(),estudioRequest.getStatusAtividade()));
+        fakeDatabase.persisteEstudio(new Estudio(ultimoId,estudioRequest.getNome(),estudioRequest.getDescricao(),estudioRequest.getDataCriacao(),estudioRequest.getStatusAtividade()));
 
 
     }
 
     public List<Estudio> consultarEstudios (String filtroNome) throws NaoCadastradoException, FiltroNaoEncontradoException {
-
         estudios = fakeDatabase.recuperaEstudios();
+
         List <Estudio> estudiosFiltrados = new ArrayList<>();
 
         if(estudios.size()>0){
-
             if(filtroNome.equals("")){
-
                 return estudios;
-
             }else{
-
                 for(int i =0 ; i < estudios.size() ; i++){
                     if(estudios.get(i).getNome().contains(filtroNome)){
                         estudiosFiltrados.add(estudios.get(i));
@@ -84,9 +79,7 @@ public class EstudioService {
                 if(estudiosFiltrados.size()<=0){
                     throw new FiltroNaoEncontradoException("Estúdio", filtroNome );
                 }
-
             }
-
         }else{
             throw new NaoCadastradoException("estúdio", "estúdios");
         }
@@ -95,8 +88,8 @@ public class EstudioService {
     }
 
     public Estudio consultarEstudio (Integer id) throws CamposObrigatoriosException, IDNaoEncontradoException {
-
         estudios = fakeDatabase.recuperaEstudios();
+
         boolean idEncontrado = false;
 
         if (id == null){
@@ -109,10 +102,9 @@ public class EstudioService {
                 }
             }
         }
+
         if(!idEncontrado){
             throw new IDNaoEncontradoException("estúdio",id);
-        }else{
-
         }
 
         return null;

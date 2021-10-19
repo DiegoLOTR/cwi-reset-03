@@ -1,4 +1,5 @@
 package br.com.cwi.reset.diegofruchtenicht;
+
 import br.com.cwi.reset.diegofruchtenicht.exception.CamposObrigatoriosException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

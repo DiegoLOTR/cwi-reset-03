@@ -4,8 +4,6 @@ import br.com.cwi.reset.diegofruchtenicht.FakeDatabase;
 import br.com.cwi.reset.diegofruchtenicht.exception.*;
 import br.com.cwi.reset.diegofruchtenicht.model.Diretor;
 import br.com.cwi.reset.diegofruchtenicht.request.DiretorRequest;
-
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +11,15 @@ import java.util.List;
 public class DiretorService {
 
     List<Diretor> diretores = new ArrayList<>();
+
     private FakeDatabase fakeDatabase;
     public DiretorService (FakeDatabase fakeDatabase) {
         this.fakeDatabase = fakeDatabase;
     }
 
     public void cadastrarDiretor (DiretorRequest diretorRequest) throws CamposObrigatoriosException, NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
-
         diretores = fakeDatabase.recuperaDiretores();
+
         LocalDate hoje = LocalDate.now();
 
         //exception campos nulos
@@ -55,43 +54,38 @@ public class DiretorService {
         }
 
         //Obtem ultimo ID
-        int lastID;
+        int ultimoId;
 
         if (diretores.size() > 0){
-            lastID = diretores.get(diretores.size()-1).getId();
-            lastID ++;
+            ultimoId = diretores.get(diretores.size()-1).getId();
+            ultimoId ++;
         }else{
-            lastID = 0;
-        }
+            ultimoId = 0;
+       }
 
         // Salva no Banco de Dados
-        fakeDatabase.persisteDiretor(new Diretor (diretorRequest.getNome(),diretorRequest.getDataNascimento(),diretorRequest.getAnoInicioAtividade(),lastID));
-
+        fakeDatabase.persisteDiretor(new Diretor (diretorRequest.getNome(),diretorRequest.getDataNascimento(),diretorRequest.getAnoInicioAtividade(),ultimoId));
 
     }
 
     public List listarDiretores (String filtroNome) throws CamposObrigatoriosException, FiltroNaoEncontradoException, NaoCadastradoException {
-
         diretores = fakeDatabase.recuperaDiretores();
+
         List <Diretor> diretoresFiltrados = new ArrayList<>();
 
         if(diretores.size()>0){
-
             if(filtroNome.equals("")){
-
                 return diretores;
-
             }else{
-
                 for(int i =0 ; i < diretores.size() ; i++){
                     if(diretores.get(i).getNome().contains(filtroNome)){
                         diretoresFiltrados.add(diretores.get(i));
                     }
                 }
+
                 if(diretoresFiltrados.size()<=0){
                     throw new FiltroNaoEncontradoException("Diretor", filtroNome );
                 }
-
             }
 
         }else{
@@ -102,8 +96,8 @@ public class DiretorService {
     }
 
     public Diretor consultarDiretor (Integer id) throws CamposObrigatoriosException, IDNaoEncontradoException {
-
         diretores = fakeDatabase.recuperaDiretores();
+
         boolean idEncontrado = false;
 
         if (id == null){
@@ -116,11 +110,9 @@ public class DiretorService {
                 }
             }
         }
+
         if(!idEncontrado){
             throw new IDNaoEncontradoException("diretor",id);
-        }else{
-
-
         }
 
         return null;
