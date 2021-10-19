@@ -14,7 +14,6 @@ public class DiretorService {
 
     List<Diretor> diretores = new ArrayList<>();
     private FakeDatabase fakeDatabase;
-
     public DiretorService (FakeDatabase fakeDatabase) {
         this.fakeDatabase = fakeDatabase;
     }

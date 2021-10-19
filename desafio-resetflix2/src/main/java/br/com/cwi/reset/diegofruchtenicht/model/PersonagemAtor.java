@@ -5,16 +5,18 @@ public class PersonagemAtor {
     Integer id;
     Ator ator;
     String nomePersonagem;
+    String descricaoPersonagem;
     TipoAtuacao tipoAtuacao;
 
-    public PersonagemAtor(Integer id, Ator ator, String nomePersonagem, TipoAtuacao tipoAtuacao) {
+    public PersonagemAtor(Integer id, Ator ator, String nomePersonagem, String descricaoPersonagem, TipoAtuacao tipoAtuacao) {
         this.id = id;
         this.ator = ator;
         this.nomePersonagem = nomePersonagem;
+        this.descricaoPersonagem = descricaoPersonagem;
         this.tipoAtuacao = tipoAtuacao;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -36,6 +38,14 @@ public class PersonagemAtor {
 
     public void setNomePersonagem(String nomePersonagem) {
         this.nomePersonagem = nomePersonagem;
+    }
+
+    public String getDescricaoPersonagem() {
+        return descricaoPersonagem;
+    }
+
+    public void setDescricaoPersonagem(String descricaoPersonagem) {
+        this.descricaoPersonagem = descricaoPersonagem;
     }
 
     public TipoAtuacao getTipoAtuacao() {

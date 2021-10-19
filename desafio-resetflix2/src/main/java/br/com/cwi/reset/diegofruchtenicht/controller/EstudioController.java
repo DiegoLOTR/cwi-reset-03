@@ -15,7 +15,6 @@ import java.util.List;
 public class EstudioController {
 
     private EstudioService estudioService;
-
     public EstudioController() {
         this.estudioService = new EstudioService(FakeDatabase.getInstance());
     }
