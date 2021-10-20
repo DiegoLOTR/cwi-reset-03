@@ -12,7 +12,6 @@ public class FilmeService {
 
     List<Filme> filmes = new ArrayList<>();
 
-
     private FakeDatabase fakeDatabase;
 
     private DiretorService diretorService;

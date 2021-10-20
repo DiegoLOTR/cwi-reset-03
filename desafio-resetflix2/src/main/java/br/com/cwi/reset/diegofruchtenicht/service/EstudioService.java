@@ -59,7 +59,6 @@ public class EstudioService {
         // Salva no Banco de Dados
         fakeDatabase.persisteEstudio(new Estudio(ultimoId,estudioRequest.getNome(),estudioRequest.getDescricao(),estudioRequest.getDataCriacao(),estudioRequest.getStatusAtividade()));
 
-
     }
 
     public List<Estudio> consultarEstudios (String filtroNome) throws NaoCadastradoException, FiltroNaoEncontradoException {

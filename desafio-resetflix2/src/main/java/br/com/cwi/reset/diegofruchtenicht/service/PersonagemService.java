@@ -14,8 +14,6 @@ public class PersonagemService {
 
     List<PersonagemAtor> personagensExistentes = new ArrayList<>();
 
-    List<PersonagemAtor> personagensNovos = new ArrayList<>();
-
     private FakeDatabase fakeDatabase;
 
     private AtorService atorService;
@@ -28,7 +26,7 @@ public class PersonagemService {
     public List <PersonagemAtor> criarPersonagem (List <PersonagemRequest> personagemRequest) throws IDNaoEncontradoException, CamposObrigatoriosException, AtorPersonagemRepetidosException {
         personagensExistentes = fakeDatabase.recuperaPersonagens();
 
-        personagensNovos.clear();
+        List<PersonagemAtor> personagensNovos = new ArrayList<>();
 
         // exceptions campos nulos
         for(PersonagemRequest personagemRequisitado : personagemRequest){
