@@ -37,6 +37,8 @@ public class FilmeService {
             throw new CamposObrigatoriosException("Ano de Lançamento");
         }else if(filmeRequest.getCapaFilme() == null || filmeRequest.getCapaFilme().isEmpty()){
             throw new CamposObrigatoriosException("Capa do Filme");
+        }else if(filmeRequest.getGeneros() == null){
+            throw new CamposObrigatoriosException("Gênero de Filme");
         }else if(filmeRequest.getIdDiretor() == null){
             throw new CamposObrigatoriosException("Id do Diretor");
         }else if(filmeRequest.getIdEstudio() == null){
@@ -84,15 +86,64 @@ public class FilmeService {
 
     }
 
-    public List <Filme> consutarFilmes (String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws NaoCadastradoException {
+    public List <Filme> consutarFilmes (String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws NaoCadastradoException, FilmeNaoEncontradoException {
         filmes = fakeDatabase.recuperaFilmes();
 
-        List<Filme> filmesFiltrados = new ArrayList<>();
+        List<Filme> filmesFiltrados = new ArrayList<>(filmes);
+        List<Filme> filmesFiltradosNome = new ArrayList<>();
+        List<Filme> filmesFiltradosDiretor = new ArrayList<>();
+        List<Filme> filmesFiltradosPersonagem = new ArrayList<>();
+        List<Filme> filmesFiltradosAtor = new ArrayList<>();
+
 
         if (filmes.size() > 0){
             if(nomeFilme.isEmpty() && nomeDiretor.isEmpty() && nomePersonagem.isEmpty() && nomeAtor.isEmpty()){
                 return filmes;
             }else {
+                if(!nomeFilme.isEmpty()){
+                    for(Filme filme : filmes){
+                        if(filme.getNome().contains(nomeFilme)){
+                           filmesFiltradosNome.add(filme);
+                        }
+                    }
+                    filmesFiltrados.retainAll(filmesFiltradosNome);
+                }
+                if(!nomeDiretor.isEmpty()){
+                    for(Filme filme : filmes){
+                        if(filme.getDiretor().getNome().contains(nomeDiretor)){
+                            filmesFiltradosDiretor.add(filme);
+                        }
+                    }
+                    filmesFiltrados.retainAll(filmesFiltradosDiretor);
+                }
+                if(!nomePersonagem.isEmpty()){
+                    for(Filme filme : filmes){
+                        for (PersonagemAtor personagem : filme.getPersonagens()){
+                            if(personagem.getNomePersonagem().contains(nomePersonagem)){
+                                filmesFiltradosPersonagem.add(filme);
+                            }
+                        }
+
+                    }
+                    filmesFiltrados.retainAll(filmesFiltradosPersonagem);
+                }
+                if(!nomeAtor.isEmpty()){
+                    for(Filme filme : filmes){
+                        for (PersonagemAtor personagem : filme.getPersonagens()){
+                            if(personagem.getAtor().getNome().contains(nomeAtor)){
+                                filmesFiltradosAtor.add(filme);
+                            }
+                        }
+
+                    }
+                    filmesFiltrados.retainAll(filmesFiltradosAtor);
+                }
+
+                if(filmesFiltrados==null || filmesFiltrados.isEmpty()){
+                    throw new FilmeNaoEncontradoException(nomeFilme,nomeDiretor,nomePersonagem,nomeAtor);
+                }
+
+                return filmesFiltrados;
 
             }
 
@@ -100,6 +151,6 @@ public class FilmeService {
             throw new NaoCadastradoException("filme", "filmes");
         }
 
-        return filmes;
+
     }
 }

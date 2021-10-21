@@ -36,6 +36,8 @@ public class PersonagemService {
                 throw new CamposObrigatoriosException("Nome do Personagem");
             }else if(personagemRequisitado.getDescricaoPersonagem() == null || personagemRequisitado.getDescricaoPersonagem().isEmpty()){
                 throw new CamposObrigatoriosException("Descrição do Personagem");
+            }else if (personagemRequisitado.getTipoAtuacao()==null) {
+                throw new CamposObrigatoriosException("Atuação Personagem");
             }
         }
 

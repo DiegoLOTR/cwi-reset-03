@@ -25,7 +25,7 @@ public class FilmeController {
     }
 
     @GetMapping
-    public List<Filme> consultarFilmes (@RequestParam String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws NaoCadastradoException {
+    public List<Filme> consultarFilmes (@RequestParam String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws NaoCadastradoException, FilmeNaoEncontradoException {
         List <Filme> filmesCadastrados = filmeService.consutarFilmes(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
 
         return filmesCadastrados;
