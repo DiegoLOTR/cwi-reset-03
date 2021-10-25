@@ -7,6 +7,7 @@ import br.com.cwi.reset.diegofruchtenicht.request.EstudioRequest;
 import br.com.cwi.reset.diegofruchtenicht.service.EstudioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class EstudioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarEstudio (@RequestBody EstudioRequest estudioRequest) throws CamposObrigatoriosException, DataCriacaoEstudioException, NomeJaCadastradoException {
+    public void criarEstudio (@RequestBody @Valid EstudioRequest estudioRequest) throws  NomeJaCadastradoException {
         estudioService.criarEstudio(estudioRequest);
     }
 
@@ -34,7 +35,7 @@ public class EstudioController {
     }
 
     @GetMapping ("/{id}")
-    public Estudio consultarEstudio (@PathVariable Integer id) throws IDNaoEncontradoException, CamposObrigatoriosException {
+    public Estudio consultarEstudio (@PathVariable @Valid Integer id) throws IDNaoEncontradoException {
         Estudio estudioConsultado = estudioService.consultarEstudio(id);
 
         return estudioConsultado;

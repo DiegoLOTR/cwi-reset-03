@@ -27,27 +27,8 @@ public class FilmeService {
         this.personagemService = new PersonagemService(FakeDatabase.getInstance());
     }
 
-    public void criarFilme (FilmeRequest filmeRequest) throws CamposObrigatoriosException, IDNaoEncontradoException, GenerosIguaisException, AtorPersonagemRepetidosException {
+    public void criarFilme (FilmeRequest filmeRequest) throws  IDNaoEncontradoException, GenerosIguaisException, AtorPersonagemRepetidosException {
         filmes = fakeDatabase.recuperaFilmes();
-
-        //exception campos nulos
-        if(filmeRequest.getNome().equals(null) || filmeRequest.getNome().isEmpty()){
-            throw new CamposObrigatoriosException("Nome");
-        }else if(filmeRequest.getAnoLancamento()==null){
-            throw new CamposObrigatoriosException("Ano de Lançamento");
-        }else if(filmeRequest.getCapaFilme() == null || filmeRequest.getCapaFilme().isEmpty()){
-            throw new CamposObrigatoriosException("Capa do Filme");
-        }else if(filmeRequest.getGeneros() == null){
-            throw new CamposObrigatoriosException("Gênero de Filme");
-        }else if(filmeRequest.getIdDiretor() == null){
-            throw new CamposObrigatoriosException("Id do Diretor");
-        }else if(filmeRequest.getIdEstudio() == null){
-            throw new CamposObrigatoriosException("Id do Estúdio");
-        }else if (filmeRequest.getResumo() == null || filmeRequest.getResumo().isEmpty()){
-            throw new CamposObrigatoriosException("Resumo");
-        }else if(filmeRequest.getPersonagens() == null){
-            throw new CamposObrigatoriosException("Lista de Personagens");
-        }
 
         // exception cadastro de dois generos iguais
         List <Genero> listaGeneroOrdenada = filmeRequest.getGeneros();

@@ -17,19 +17,10 @@ public class DiretorService {
         this.fakeDatabase = fakeDatabase;
     }
 
-    public void cadastrarDiretor (DiretorRequest diretorRequest) throws CamposObrigatoriosException, NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
+    public void cadastrarDiretor (DiretorRequest diretorRequest) throws  NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
         diretores = fakeDatabase.recuperaDiretores();
 
         LocalDate hoje = LocalDate.now();
-
-        //exception campos nulos
-        if(diretorRequest.getNome().equals(null) || diretorRequest.getNome().isEmpty()){
-            throw new CamposObrigatoriosException("Nome");
-        }else if(diretorRequest.getDataNascimento() == null){
-            throw new CamposObrigatoriosException("Data Nascimento");
-        }else if(diretorRequest.getAnoInicioAtividade() == null){
-            throw new CamposObrigatoriosException("Ano Início Atividade");
-        }
 
         // exception nome e sobrenome
         if ((diretorRequest.getNome().split(" ").length < 2)){
@@ -68,7 +59,7 @@ public class DiretorService {
 
     }
 
-    public List listarDiretores (String filtroNome) throws CamposObrigatoriosException, FiltroNaoEncontradoException, NaoCadastradoException {
+    public List listarDiretores (String filtroNome) throws  FiltroNaoEncontradoException, NaoCadastradoException {
         diretores = fakeDatabase.recuperaDiretores();
 
         List <Diretor> diretoresFiltrados = new ArrayList<>();
@@ -95,21 +86,18 @@ public class DiretorService {
         return diretoresFiltrados;
     }
 
-    public Diretor consultarDiretor (Integer id) throws CamposObrigatoriosException, IDNaoEncontradoException {
+    public Diretor consultarDiretor (Integer id) throws  IDNaoEncontradoException {
         diretores = fakeDatabase.recuperaDiretores();
 
         boolean idEncontrado = false;
 
-        if (id == null){
-            throw new CamposObrigatoriosException("id");
-        }else{
             for (Diretor diretor: diretores){
                 if(diretor.getId()==id){
                     idEncontrado = true;
                     return new Diretor (diretor.getNome(),diretor.getDataNascimento(),diretor.getAnoInicioAtividade(),diretor.getId());
                 }
             }
-        }
+
 
         if(!idEncontrado){
             throw new IDNaoEncontradoException("diretor",id);

@@ -2,7 +2,6 @@ package br.com.cwi.reset.diegofruchtenicht.service;
 
 import br.com.cwi.reset.diegofruchtenicht.FakeDatabase;
 import br.com.cwi.reset.diegofruchtenicht.exception.AtorPersonagemRepetidosException;
-import br.com.cwi.reset.diegofruchtenicht.exception.CamposObrigatoriosException;
 import br.com.cwi.reset.diegofruchtenicht.exception.IDNaoEncontradoException;
 import br.com.cwi.reset.diegofruchtenicht.model.Ator;
 import br.com.cwi.reset.diegofruchtenicht.model.PersonagemAtor;
@@ -23,23 +22,11 @@ public class PersonagemService {
         this.atorService = new AtorService((FakeDatabase.getInstance()));
     }
 
-    public List <PersonagemAtor> criarPersonagem (List <PersonagemRequest> personagemRequest) throws IDNaoEncontradoException, CamposObrigatoriosException, AtorPersonagemRepetidosException {
+    public List <PersonagemAtor> criarPersonagem (List <PersonagemRequest> personagemRequest) throws IDNaoEncontradoException, AtorPersonagemRepetidosException {
         personagensExistentes = fakeDatabase.recuperaPersonagens();
 
         List<PersonagemAtor> personagensNovos = new ArrayList<>();
 
-        // exceptions campos nulos
-        for(PersonagemRequest personagemRequisitado : personagemRequest){
-            if (personagemRequisitado.getIdAtor() == null){
-                throw new CamposObrigatoriosException("Id do Ator");
-            }else if(personagemRequisitado.getNomePersonagem() == null || personagemRequisitado.getNomePersonagem().isEmpty()){
-                throw new CamposObrigatoriosException("Nome do Personagem");
-            }else if(personagemRequisitado.getDescricaoPersonagem() == null || personagemRequisitado.getDescricaoPersonagem().isEmpty()){
-                throw new CamposObrigatoriosException("Descrição do Personagem");
-            }else if (personagemRequisitado.getTipoAtuacao()==null) {
-                throw new CamposObrigatoriosException("Atuação Personagem");
-            }
-        }
 
         // Verifica se nao tem dois personagens iguais linkados ao mesmo ator
         if(personagemRequest.size() > 1){

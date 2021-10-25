@@ -8,6 +8,8 @@ import br.com.cwi.reset.diegofruchtenicht.response.AtorEmAtividade;
 import br.com.cwi.reset.diegofruchtenicht.service.AtorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,27 +24,27 @@ public class AtorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarAtor (@RequestBody AtorRequest atorRequest) throws CamposObrigatoriosException, NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
+    public void criarAtor (@RequestBody @Valid AtorRequest atorRequest) throws NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
         atorService.criarAtor(atorRequest);
 
     }
 
     @GetMapping
-    public List <Ator> consultarAtores () throws CamposObrigatoriosException, NaoCadastradoException {
+    public List <Ator> consultarAtores () throws  NaoCadastradoException {
         List<Ator> atoresCadastrados = atorService.consultarAtores();
 
         return atoresCadastrados;
     }
 
     @GetMapping ("/{id}")
-    public Ator consultarAtor (@PathVariable Integer id) throws CamposObrigatoriosException, IDNaoEncontradoException {
+    public Ator consultarAtor (@PathVariable @Valid Integer id) throws IDNaoEncontradoException {
         Ator atorConsultado = atorService.consultarAtor(id);
 
         return atorConsultado;
     }
 
     @GetMapping ("/em_atividade")
-    public List <AtorEmAtividade> listarAtoresEmAtividade (@RequestParam String filtroNome) throws CamposObrigatoriosException, FiltroNaoEncontradoException, NaoCadastradoException, NenhumAtorAtividade {
+    public List <AtorEmAtividade> listarAtoresEmAtividade (@RequestParam String filtroNome) throws FiltroNaoEncontradoException, NaoCadastradoException, NenhumAtorAtividade {
         List<AtorEmAtividade> atoresEmAtividade = atorService.listarAtoresEmAtividade(filtroNome);
 
         return atoresEmAtividade;

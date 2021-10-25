@@ -20,21 +20,10 @@ public class AtorService {
         this.fakeDatabase = fakeDatabase;
     }
 
-    public void criarAtor (AtorRequest atorRequest) throws CamposObrigatoriosException, NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
+    public void criarAtor (AtorRequest atorRequest) throws  NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
         atores = fakeDatabase.recuperaAtores();
 
         LocalDate hoje = LocalDate.now();
-
-        //exception campos nulos
-        if(atorRequest.getNome().equals(null) || atorRequest.getNome().isEmpty()){
-            throw new CamposObrigatoriosException("Nome");
-        }else if(atorRequest.getDataNascimento() == null){
-            throw new CamposObrigatoriosException("Data Nascimento");
-        }else if(atorRequest.getAnoInicioAtividade() == null){
-            throw new CamposObrigatoriosException("Ano Início Atividade");
-        }else if(atorRequest.getStatusCarreira() == null){
-            throw new CamposObrigatoriosException("Status Carreira");
-        }
 
        // exception nome e sobrenome
         if ((atorRequest.getNome().split(" ").length < 2)){
@@ -73,7 +62,7 @@ public class AtorService {
 
     }
 
-    public List listarAtoresEmAtividade (String filtroNome) throws CamposObrigatoriosException, FiltroNaoEncontradoException, NaoCadastradoException, NenhumAtorAtividade {
+    public List listarAtoresEmAtividade (String filtroNome) throws  FiltroNaoEncontradoException, NaoCadastradoException, NenhumAtorAtividade {
       atores = fakeDatabase.recuperaAtores();
 
       List <AtorEmAtividade> atorEmAtividade = new ArrayList<>();
@@ -112,21 +101,17 @@ public class AtorService {
 
    }
 
-    public Ator consultarAtor (Integer id) throws CamposObrigatoriosException, IDNaoEncontradoException {
+    public Ator consultarAtor (Integer id) throws  IDNaoEncontradoException {
         atores = fakeDatabase.recuperaAtores();
 
         boolean idEncontrado = false;
 
-        if (id == null){
-            throw new CamposObrigatoriosException("id");
-        }else{
             for (Ator ator: atores){
                 if(ator.getId()==id){
                  idEncontrado = true;
                  return new Ator (ator.getNome(),ator.getDataNascimento(),ator.getAnoInicioAtividade(),ator.getId(),ator.getStatusCarreira());
                 }
             }
-        }
 
         if(!idEncontrado){
             throw new IDNaoEncontradoException("ator",id);
@@ -136,7 +121,7 @@ public class AtorService {
 
    }
 
-    public List consultarAtores () throws CamposObrigatoriosException, NaoCadastradoException {
+    public List consultarAtores () throws  NaoCadastradoException {
        atores = fakeDatabase.recuperaAtores();
 
        if(atores.size()>0){
