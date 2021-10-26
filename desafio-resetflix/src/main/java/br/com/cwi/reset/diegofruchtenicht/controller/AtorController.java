@@ -24,7 +24,7 @@ public class AtorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarAtor (@RequestBody @Valid AtorRequest atorRequest) throws NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
+    public void criarAtor (@RequestBody @Valid AtorRequest atorRequest) throws NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException {
         atorService.criarAtor(atorRequest);
 
     }

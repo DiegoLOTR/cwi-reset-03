@@ -20,7 +20,7 @@ public class AtorService {
         this.fakeDatabase = fakeDatabase;
     }
 
-    public void criarAtor (AtorRequest atorRequest) throws  NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
+    public void criarAtor (AtorRequest atorRequest) throws  NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException {
         atores = fakeDatabase.recuperaAtores();
 
         LocalDate hoje = LocalDate.now();
@@ -37,28 +37,13 @@ public class AtorService {
             }
         }
 
-        // exception Data de Nascimento
-        if (atorRequest.getDataNascimento().isAfter(hoje) ){
-            throw new NaoNascidosException("atores");
-        }
-
         // exception Inicio da Atividade
         if (atorRequest.getAnoInicioAtividade()< atorRequest.getDataNascimento().getYear() || atorRequest.getAnoInicioAtividade() > hoje.getYear() ){
             throw new AnoInicioAtividadeException("ator");
         }
 
-        //Obtem ultimo ID
-        int ultimoId;
-
-            if (atores.size() > 0){
-                ultimoId = atores.get(atores.size()-1).getId();
-                ultimoId ++;
-            }else{
-                ultimoId = 0;
-            }
-
         // Salva no Banco de Dados
-        fakeDatabase.persisteAtor(new Ator(atorRequest.getNome(),atorRequest.getDataNascimento(),atorRequest.getAnoInicioAtividade(),ultimoId,atorRequest.getStatusCarreira()));
+        fakeDatabase.persisteAtor(new Ator(atorRequest.getNome(),atorRequest.getDataNascimento(),atorRequest.getStatusCarreira(),atorRequest.getAnoInicioAtividade()));
 
     }
 
@@ -109,7 +94,7 @@ public class AtorService {
             for (Ator ator: atores){
                 if(ator.getId()==id){
                  idEncontrado = true;
-                 return new Ator (ator.getNome(),ator.getDataNascimento(),ator.getAnoInicioAtividade(),ator.getId(),ator.getStatusCarreira());
+                 return new Ator (ator.getNome(),ator.getDataNascimento(),ator.getStatusCarreira(),ator.getAnoInicioAtividade());
                 }
             }
 

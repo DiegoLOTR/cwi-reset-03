@@ -54,7 +54,7 @@ public class PersonagemService {
         //Criar o Ator, PersonagemAtor e Salva no Banco de Dados
         for (PersonagemRequest personagemValidado : personagemRequest){
             Ator ator = atorService.consultarAtor(personagemValidado.getIdAtor());
-            PersonagemAtor personagemAtorCriado = new PersonagemAtor(ultimoId,ator,personagemValidado.getNomePersonagem(),personagemValidado.getDescricaoPersonagem(),personagemValidado.getTipoAtuacao());
+            PersonagemAtor personagemAtorCriado = new PersonagemAtor(ator,personagemValidado.getNomePersonagem(),personagemValidado.getDescricaoPersonagem(),personagemValidado.getTipoAtuacao());
             fakeDatabase.persistePersonagem(personagemAtorCriado);
             personagensNovos.add(personagemAtorCriado);
             ultimoId++;

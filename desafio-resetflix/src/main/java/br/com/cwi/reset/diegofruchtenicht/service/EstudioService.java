@@ -38,7 +38,7 @@ public class EstudioService {
         }
 
         // Salva no Banco de Dados
-        fakeDatabase.persisteEstudio(new Estudio(ultimoId,estudioRequest.getNome(),estudioRequest.getDescricao(),estudioRequest.getDataCriacao(),estudioRequest.getStatusAtividade()));
+        fakeDatabase.persisteEstudio(new Estudio(estudioRequest.getNome(),estudioRequest.getDescricao(),estudioRequest.getDataCriacao(),estudioRequest.getStatusAtividade()));
 
     }
 

@@ -23,7 +23,7 @@ public class DiretorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrarDiretor (@RequestBody @Valid DiretorRequest diretorRequest) throws  NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
+    public void cadastrarDiretor (@RequestBody @Valid DiretorRequest diretorRequest) throws  NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException {
         diretorService.cadastrarDiretor(diretorRequest);
 
     }

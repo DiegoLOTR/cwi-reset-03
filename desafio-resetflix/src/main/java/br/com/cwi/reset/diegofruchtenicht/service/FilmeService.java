@@ -52,18 +52,8 @@ public class FilmeService {
         //Gera Lista de Personagens
         List <PersonagemAtor> listaPersonagensAtorGerados = personagemService.criarPersonagem(filmeRequest.getPersonagens());
 
-        //Obtem ultimo ID
-        int ultimoId;
-
-        if (filmes.size() > 0){
-            ultimoId = filmes.get(filmes.size()-1).getId();
-            ultimoId ++;
-        }else{
-            ultimoId = 0;
-        }
-
         // Salva no Banco de Dados
-        fakeDatabase.persisteFilme(new Filme(ultimoId,filmeRequest.getNome(),filmeRequest.getAnoLancamento(), filmeRequest.getCapaFilme(), filmeRequest.getGeneros(),diretor,estudio,listaPersonagensAtorGerados,filmeRequest.getResumo()));
+        fakeDatabase.persisteFilme(new Filme(filmeRequest.getNome(),filmeRequest.getAnoLancamento(), filmeRequest.getCapaFilme(), filmeRequest.getGeneros(),estudio,diretor,listaPersonagensAtorGerados,filmeRequest.getResumo()));
 
     }
 

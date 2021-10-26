@@ -17,7 +17,7 @@ public class DiretorService {
         this.fakeDatabase = fakeDatabase;
     }
 
-    public void cadastrarDiretor (DiretorRequest diretorRequest) throws  NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException, NaoNascidosException {
+    public void cadastrarDiretor (DiretorRequest diretorRequest) throws  NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException {
         diretores = fakeDatabase.recuperaDiretores();
 
         LocalDate hoje = LocalDate.now();
@@ -34,28 +34,14 @@ public class DiretorService {
             }
         }
 
-        // exception Data de Nascimento
-        if (diretorRequest.getDataNascimento().isAfter(hoje) ){
-            throw new NaoNascidosException("diretores");
-        }
-
         // exception Inicio da Atividade
         if (diretorRequest.getAnoInicioAtividade()< diretorRequest.getDataNascimento().getYear() || diretorRequest.getAnoInicioAtividade() > hoje.getYear() ){
             throw new AnoInicioAtividadeException("diretor");
         }
 
-        //Obtem ultimo ID
-        int ultimoId;
-
-        if (diretores.size() > 0){
-            ultimoId = diretores.get(diretores.size()-1).getId();
-            ultimoId ++;
-        }else{
-            ultimoId = 0;
-       }
 
         // Salva no Banco de Dados
-        fakeDatabase.persisteDiretor(new Diretor (diretorRequest.getNome(),diretorRequest.getDataNascimento(),diretorRequest.getAnoInicioAtividade(),ultimoId));
+        fakeDatabase.persisteDiretor(new Diretor (diretorRequest.getNome(),diretorRequest.getDataNascimento(),diretorRequest.getAnoInicioAtividade()));
 
     }
 
@@ -94,7 +80,7 @@ public class DiretorService {
             for (Diretor diretor: diretores){
                 if(diretor.getId()==id){
                     idEncontrado = true;
-                    return new Diretor (diretor.getNome(),diretor.getDataNascimento(),diretor.getAnoInicioAtividade(),diretor.getId());
+                    return new Diretor (diretor.getNome(),diretor.getDataNascimento(),diretor.getAnoInicioAtividade());
                 }
             }
 
