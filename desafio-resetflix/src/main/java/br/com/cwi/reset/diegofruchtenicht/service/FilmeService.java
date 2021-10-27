@@ -1,34 +1,31 @@
 package br.com.cwi.reset.diegofruchtenicht.service;
 
-import br.com.cwi.reset.diegofruchtenicht.FakeDatabase;
 import br.com.cwi.reset.diegofruchtenicht.exception.*;
 import br.com.cwi.reset.diegofruchtenicht.model.*;
+import br.com.cwi.reset.diegofruchtenicht.repository.FilmeRepository;
 import br.com.cwi.reset.diegofruchtenicht.request.FilmeRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class FilmeService {
+
+    @Autowired
+    private FilmeRepository filmeRepository;
 
     List<Filme> filmes = new ArrayList<>();
 
-    private FakeDatabase fakeDatabase;
-
+    @Autowired
     private DiretorService diretorService;
-
+    @Autowired
     private EstudioService estudioService;
-
+    @Autowired
     private PersonagemService personagemService;
 
-    public FilmeService (FakeDatabase fakeDatabase) {
-        this.fakeDatabase = fakeDatabase;
-        this.diretorService = new DiretorService(FakeDatabase.getInstance());
-        this.estudioService = new EstudioService(FakeDatabase.getInstance());
-        this.personagemService = new PersonagemService(FakeDatabase.getInstance());
-    }
-
     public void criarFilme (FilmeRequest filmeRequest) throws  IDNaoEncontradoException, GenerosIguaisException, AtorPersonagemRepetidosException {
-        filmes = fakeDatabase.recuperaFilmes();
 
         // exception cadastro de dois generos iguais
         List <Genero> listaGeneroOrdenada = filmeRequest.getGeneros();
@@ -53,12 +50,12 @@ public class FilmeService {
         List <PersonagemAtor> listaPersonagensAtorGerados = personagemService.criarPersonagem(filmeRequest.getPersonagens());
 
         // Salva no Banco de Dados
-        fakeDatabase.persisteFilme(new Filme(filmeRequest.getNome(),filmeRequest.getAnoLancamento(), filmeRequest.getCapaFilme(), filmeRequest.getGeneros(),estudio,diretor,listaPersonagensAtorGerados,filmeRequest.getResumo()));
+        filmeRepository.save(new Filme(filmeRequest.getNome(),filmeRequest.getAnoLancamento(), filmeRequest.getCapaFilme(), filmeRequest.getGeneros(),estudio,diretor,listaPersonagensAtorGerados,filmeRequest.getResumo()));
 
     }
 
     public List <Filme> consutarFilmes (String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws NaoCadastradoException, FilmeNaoEncontradoException {
-        filmes = fakeDatabase.recuperaFilmes();
+        filmes = filmeRepository.findAll();
 
         List<Filme> filmesFiltrados = new ArrayList<>(filmes);
         List<Filme> filmesFiltradosNome = new ArrayList<>();

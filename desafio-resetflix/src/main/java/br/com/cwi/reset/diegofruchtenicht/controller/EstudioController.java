@@ -1,10 +1,10 @@
 package br.com.cwi.reset.diegofruchtenicht.controller;
 
-import br.com.cwi.reset.diegofruchtenicht.FakeDatabase;
 import br.com.cwi.reset.diegofruchtenicht.exception.*;
 import br.com.cwi.reset.diegofruchtenicht.model.Estudio;
 import br.com.cwi.reset.diegofruchtenicht.request.EstudioRequest;
 import br.com.cwi.reset.diegofruchtenicht.service.EstudioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -15,9 +15,11 @@ import java.util.List;
 @RequestMapping("/estudios")
 public class EstudioController {
 
+    @Autowired
     private EstudioService estudioService;
+
     public EstudioController() {
-        this.estudioService = new EstudioService(FakeDatabase.getInstance());
+        this.estudioService = new EstudioService();
     }
 
     @PostMapping

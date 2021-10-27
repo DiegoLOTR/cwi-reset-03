@@ -5,9 +5,9 @@ import br.com.cwi.reset.diegofruchtenicht.exception.*;
 import br.com.cwi.reset.diegofruchtenicht.model.Diretor;
 import br.com.cwi.reset.diegofruchtenicht.request.DiretorRequest;
 import br.com.cwi.reset.diegofruchtenicht.service.DiretorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -15,10 +15,11 @@ import java.util.List;
 @RequestMapping("/diretores")
 public class DiretorController {
 
+    @Autowired
     private DiretorService diretorService;
 
     public DiretorController() {
-        this.diretorService = new DiretorService(FakeDatabase.getInstance());
+        this.diretorService = new DiretorService();
     }
 
     @PostMapping

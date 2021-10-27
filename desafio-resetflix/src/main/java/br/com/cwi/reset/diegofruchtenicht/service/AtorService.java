@@ -1,27 +1,27 @@
 package br.com.cwi.reset.diegofruchtenicht.service;
 
+import br.com.cwi.reset.diegofruchtenicht.repository.AtorRepository;
 import br.com.cwi.reset.diegofruchtenicht.response.AtorEmAtividade;
-import br.com.cwi.reset.diegofruchtenicht.FakeDatabase;
 import br.com.cwi.reset.diegofruchtenicht.exception.*;
 import br.com.cwi.reset.diegofruchtenicht.model.Ator;
 import br.com.cwi.reset.diegofruchtenicht.model.StatusCarreira;
 import br.com.cwi.reset.diegofruchtenicht.request.AtorRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class AtorService {
+
+    @Autowired
+    private AtorRepository atorRepository;
 
     List<Ator> atores = new ArrayList<>();
 
-    private FakeDatabase fakeDatabase;
-
-    public AtorService(FakeDatabase fakeDatabase) {
-        this.fakeDatabase = fakeDatabase;
-    }
-
     public void criarAtor (AtorRequest atorRequest) throws  NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException {
-        atores = fakeDatabase.recuperaAtores();
+        atores = atorRepository.findAll();
 
         LocalDate hoje = LocalDate.now();
 
@@ -43,12 +43,12 @@ public class AtorService {
         }
 
         // Salva no Banco de Dados
-        fakeDatabase.persisteAtor(new Ator(atorRequest.getNome(),atorRequest.getDataNascimento(),atorRequest.getStatusCarreira(),atorRequest.getAnoInicioAtividade()));
+        atorRepository.save(new Ator(atorRequest.getNome(),atorRequest.getDataNascimento(),atorRequest.getStatusCarreira(),atorRequest.getAnoInicioAtividade()));
 
     }
 
     public List listarAtoresEmAtividade (String filtroNome) throws  FiltroNaoEncontradoException, NaoCadastradoException, NenhumAtorAtividade {
-      atores = fakeDatabase.recuperaAtores();
+      atores = atorRepository.findAll();
 
       List <AtorEmAtividade> atorEmAtividade = new ArrayList<>();
 
@@ -87,27 +87,13 @@ public class AtorService {
    }
 
     public Ator consultarAtor (Integer id) throws  IDNaoEncontradoException {
-        atores = fakeDatabase.recuperaAtores();
 
-        boolean idEncontrado = false;
-
-            for (Ator ator: atores){
-                if(ator.getId()==id){
-                 idEncontrado = true;
-                 return new Ator (ator.getNome(),ator.getDataNascimento(),ator.getStatusCarreira(),ator.getAnoInicioAtividade());
-                }
-            }
-
-        if(!idEncontrado){
-            throw new IDNaoEncontradoException("ator",id);
-        }
-
-     return null;
+        return atorRepository.findById(id).orElseThrow(() -> new IDNaoEncontradoException("ator",id));
 
    }
 
     public List consultarAtores () throws  NaoCadastradoException {
-       atores = fakeDatabase.recuperaAtores();
+        atores = atorRepository.findAll();
 
        if(atores.size()>0){
            return atores;

@@ -1,32 +1,30 @@
 package br.com.cwi.reset.diegofruchtenicht.service;
 
-import br.com.cwi.reset.diegofruchtenicht.FakeDatabase;
 import br.com.cwi.reset.diegofruchtenicht.exception.AtorPersonagemRepetidosException;
 import br.com.cwi.reset.diegofruchtenicht.exception.IDNaoEncontradoException;
 import br.com.cwi.reset.diegofruchtenicht.model.Ator;
 import br.com.cwi.reset.diegofruchtenicht.model.PersonagemAtor;
+import br.com.cwi.reset.diegofruchtenicht.repository.PersonagemRepository;
 import br.com.cwi.reset.diegofruchtenicht.request.PersonagemRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class PersonagemService {
+
+    @Autowired
+    private PersonagemRepository personagemRepository;
 
     List<PersonagemAtor> personagensExistentes = new ArrayList<>();
 
-    private FakeDatabase fakeDatabase;
-
+    @Autowired
     private AtorService atorService;
 
-    public PersonagemService(FakeDatabase fakeDatabase) {
-        this.fakeDatabase = fakeDatabase;
-        this.atorService = new AtorService((FakeDatabase.getInstance()));
-    }
-
     public List <PersonagemAtor> criarPersonagem (List <PersonagemRequest> personagemRequest) throws IDNaoEncontradoException, AtorPersonagemRepetidosException {
-        personagensExistentes = fakeDatabase.recuperaPersonagens();
 
         List<PersonagemAtor> personagensNovos = new ArrayList<>();
-
 
         // Verifica se nao tem dois personagens iguais linkados ao mesmo ator
         if(personagemRequest.size() > 1){
@@ -39,25 +37,14 @@ public class PersonagemService {
                     }
                 }
             }
+
         }
 
-        //Obtem ultimo ID
-        int ultimoId;
-
-        if (personagensExistentes.size() > 0){
-            ultimoId = personagensExistentes.get(personagensExistentes.size()-1).getId();
-            ultimoId ++;
-        }else{
-            ultimoId = 0;
-        }
-
-        //Criar o Ator, PersonagemAtor e Salva no Banco de Dados
         for (PersonagemRequest personagemValidado : personagemRequest){
             Ator ator = atorService.consultarAtor(personagemValidado.getIdAtor());
             PersonagemAtor personagemAtorCriado = new PersonagemAtor(ator,personagemValidado.getNomePersonagem(),personagemValidado.getDescricaoPersonagem(),personagemValidado.getTipoAtuacao());
-            fakeDatabase.persistePersonagem(personagemAtorCriado);
+            personagemRepository.save(personagemAtorCriado);
             personagensNovos.add(personagemAtorCriado);
-            ultimoId++;
         }
 
         return personagensNovos;

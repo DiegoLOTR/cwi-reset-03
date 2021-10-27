@@ -1,24 +1,25 @@
 package br.com.cwi.reset.diegofruchtenicht.service;
 
-import br.com.cwi.reset.diegofruchtenicht.FakeDatabase;
 import br.com.cwi.reset.diegofruchtenicht.exception.*;
 import br.com.cwi.reset.diegofruchtenicht.model.Diretor;
+import br.com.cwi.reset.diegofruchtenicht.repository.DiretorRepository;
 import br.com.cwi.reset.diegofruchtenicht.request.DiretorRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class DiretorService {
+
+    @Autowired
+    private DiretorRepository diretorRepository;
 
     List<Diretor> diretores = new ArrayList<>();
 
-    private FakeDatabase fakeDatabase;
-    public DiretorService (FakeDatabase fakeDatabase) {
-        this.fakeDatabase = fakeDatabase;
-    }
-
     public void cadastrarDiretor (DiretorRequest diretorRequest) throws  NomeSobrenomeException, NomeJaCadastradoException, AnoInicioAtividadeException {
-        diretores = fakeDatabase.recuperaDiretores();
+        diretores = diretorRepository.findAll();
 
         LocalDate hoje = LocalDate.now();
 
@@ -41,12 +42,12 @@ public class DiretorService {
 
 
         // Salva no Banco de Dados
-        fakeDatabase.persisteDiretor(new Diretor (diretorRequest.getNome(),diretorRequest.getDataNascimento(),diretorRequest.getAnoInicioAtividade()));
+        diretorRepository.save(new Diretor (diretorRequest.getNome(),diretorRequest.getDataNascimento(),diretorRequest.getAnoInicioAtividade()));
 
     }
 
     public List listarDiretores (String filtroNome) throws  FiltroNaoEncontradoException, NaoCadastradoException {
-        diretores = fakeDatabase.recuperaDiretores();
+        diretores = diretorRepository.findAll();
 
         List <Diretor> diretoresFiltrados = new ArrayList<>();
 
@@ -73,23 +74,9 @@ public class DiretorService {
     }
 
     public Diretor consultarDiretor (Integer id) throws  IDNaoEncontradoException {
-        diretores = fakeDatabase.recuperaDiretores();
 
-        boolean idEncontrado = false;
+        return diretorRepository.findById(id).orElseThrow(() -> new IDNaoEncontradoException("diretor",id));
 
-            for (Diretor diretor: diretores){
-                if(diretor.getId()==id){
-                    idEncontrado = true;
-                    return new Diretor (diretor.getNome(),diretor.getDataNascimento(),diretor.getAnoInicioAtividade());
-                }
-            }
-
-
-        if(!idEncontrado){
-            throw new IDNaoEncontradoException("diretor",id);
-        }
-
-        return null;
     }
 
 }

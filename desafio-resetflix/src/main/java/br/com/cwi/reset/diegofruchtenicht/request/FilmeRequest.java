@@ -1,7 +1,6 @@
 package br.com.cwi.reset.diegofruchtenicht.request;
 
 import br.com.cwi.reset.diegofruchtenicht.model.Genero;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

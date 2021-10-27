@@ -6,9 +6,9 @@ import br.com.cwi.reset.diegofruchtenicht.model.Ator;
 import br.com.cwi.reset.diegofruchtenicht.request.AtorRequest;
 import br.com.cwi.reset.diegofruchtenicht.response.AtorEmAtividade;
 import br.com.cwi.reset.diegofruchtenicht.service.AtorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -16,10 +16,11 @@ import java.util.List;
 @RequestMapping("/atores")
 public class AtorController {
 
+    @Autowired
     private AtorService atorService;
 
     public AtorController() {
-        this.atorService = new AtorService(FakeDatabase.getInstance());
+        this.atorService = new AtorService();
     }
 
     @PostMapping

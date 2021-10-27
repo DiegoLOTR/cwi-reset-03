@@ -1,28 +1,17 @@
 package br.com.cwi.reset.diegofruchtenicht.model;
 
 public enum Genero {
-
-    ACAO("Ação"),
-    AVENTURA("Aventura"),
-    COMEDIA("Comédia"),
-    DOCUMENTARIO("Documentário"),
-    DRAMA("Drama"),
-    ESPIONAGEM("Espionagem"),
-    FICCAO_CIENTIFICA("Ficção Científica"),
-    GUERRA("Guerra"),
-    MISTERIO("Mistério"),
-    MUSICAL("Musical"),
-    POLICIAL("Policial"),
-    ROMANCE("Romance"),
-    TERROR("Terror");
-
-    private String genero;
-
-    Genero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
+    ACAO,
+    AVENTURA,
+    COMEDIA,
+    DOCUMENTARIO,
+    DRAMA,
+    ESPIONAGEM,
+    FICCAO_CIENTIFICA,
+    GUERRA,
+    MISTERIO,
+    MUSICAL,
+    POLICIAL,
+    ROMANCE,
+    TERROR;
 }

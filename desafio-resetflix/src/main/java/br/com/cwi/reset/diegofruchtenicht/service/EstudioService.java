@@ -1,24 +1,24 @@
 package br.com.cwi.reset.diegofruchtenicht.service;
 
-import br.com.cwi.reset.diegofruchtenicht.FakeDatabase;
 import br.com.cwi.reset.diegofruchtenicht.exception.*;
 import br.com.cwi.reset.diegofruchtenicht.model.Estudio;
+import br.com.cwi.reset.diegofruchtenicht.repository.EstudioRepository;
 import br.com.cwi.reset.diegofruchtenicht.request.EstudioRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class EstudioService {
+
+    @Autowired
+    private EstudioRepository estudioRepository;
 
     List<Estudio> estudios = new ArrayList<>();
 
-    private FakeDatabase fakeDatabase;
-
-    public EstudioService (FakeDatabase fakeDatabase) {
-        this.fakeDatabase = fakeDatabase;
-    }
-
     public void criarEstudio (EstudioRequest estudioRequest) throws  NomeJaCadastradoException {
-        estudios = fakeDatabase.recuperaEstudios();
+        estudios = estudioRepository.findAll();
 
         // exception nome ja cadastrado
         for (Estudio estudio : estudios){
@@ -27,23 +27,13 @@ public class EstudioService {
             }
         }
 
-        //Obtem ultimo ID
-        int ultimoId;
-
-        if (estudios.size() > 0){
-            ultimoId = estudios.get(estudios.size()-1).getId();
-            ultimoId ++;
-        }else{
-            ultimoId = 0;
-        }
-
         // Salva no Banco de Dados
-        fakeDatabase.persisteEstudio(new Estudio(estudioRequest.getNome(),estudioRequest.getDescricao(),estudioRequest.getDataCriacao(),estudioRequest.getStatusAtividade()));
+        estudioRepository.save(new Estudio(estudioRequest.getNome(),estudioRequest.getDescricao(),estudioRequest.getDataCriacao(),estudioRequest.getStatusAtividade()));
 
     }
 
     public List<Estudio> consultarEstudios (String filtroNome) throws NaoCadastradoException, FiltroNaoEncontradoException {
-        estudios = fakeDatabase.recuperaEstudios();
+        estudios = estudioRepository.findAll();
 
         List <Estudio> estudiosFiltrados = new ArrayList<>();
 
@@ -68,23 +58,8 @@ public class EstudioService {
     }
 
     public Estudio consultarEstudio (Integer id) throws IDNaoEncontradoException {
-        estudios = fakeDatabase.recuperaEstudios();
 
-        boolean idEncontrado = false;
-
-            for (Estudio estudio: estudios){
-                if(estudio.getId()==id){
-                    idEncontrado = true;
-                    return estudio;
-                }
-            }
-
-
-        if(!idEncontrado){
-            throw new IDNaoEncontradoException("estúdio",id);
-        }
-
-        return null;
+        return estudioRepository.findById(id).orElseThrow(() -> new IDNaoEncontradoException("estúdio",id));
 
     }
 
