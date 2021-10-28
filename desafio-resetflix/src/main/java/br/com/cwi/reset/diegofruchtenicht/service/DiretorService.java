@@ -2,7 +2,9 @@ package br.com.cwi.reset.diegofruchtenicht.service;
 
 import br.com.cwi.reset.diegofruchtenicht.exception.*;
 import br.com.cwi.reset.diegofruchtenicht.model.Diretor;
+import br.com.cwi.reset.diegofruchtenicht.model.Filme;
 import br.com.cwi.reset.diegofruchtenicht.repository.DiretorRepository;
+import br.com.cwi.reset.diegofruchtenicht.repository.FilmeRepository;
 import br.com.cwi.reset.diegofruchtenicht.request.DiretorRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class DiretorService {
 
     @Autowired
     private DiretorRepository diretorRepository;
+
+    @Autowired
+    private FilmeRepository filmeRepository;
 
     List<Diretor> diretores = new ArrayList<>();
 
@@ -79,5 +84,18 @@ public class DiretorService {
 
     }
 
+    public void removerDiretores (Integer id) throws IDNaoEncontradoException, DiretorVinculadoFilmeException {
+
+        Diretor diretorEncontrado = diretorRepository.findById(id).orElseThrow(() -> new IDNaoEncontradoException("diretor",id));
+
+        List<Filme> filmesEncontrados = filmeRepository.findByDiretor(diretorEncontrado);
+
+        if (filmesEncontrados.size()>0){
+            throw  new DiretorVinculadoFilmeException();
+        }
+
+        diretorRepository.deleteById(id);
+
+    }
 }
 

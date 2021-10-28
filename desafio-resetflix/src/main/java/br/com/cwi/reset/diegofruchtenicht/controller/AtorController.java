@@ -52,5 +52,10 @@ public class AtorController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public void removerAtor (@PathVariable @Valid Integer id) throws IDNaoEncontradoException, AtorVinculadoPersonagemException {
+        atorService.removerAtor(id);
+    }
+
 
 }

@@ -1,6 +1,8 @@
 package br.com.cwi.reset.diegofruchtenicht.service;
 
+import br.com.cwi.reset.diegofruchtenicht.model.PersonagemAtor;
 import br.com.cwi.reset.diegofruchtenicht.repository.AtorRepository;
+import br.com.cwi.reset.diegofruchtenicht.repository.PersonagemRepository;
 import br.com.cwi.reset.diegofruchtenicht.response.AtorEmAtividade;
 import br.com.cwi.reset.diegofruchtenicht.exception.*;
 import br.com.cwi.reset.diegofruchtenicht.model.Ator;
@@ -17,6 +19,9 @@ public class AtorService {
 
     @Autowired
     private AtorRepository atorRepository;
+
+    @Autowired
+    private PersonagemRepository personagemRepository;
 
     List<Ator> atores = new ArrayList<>();
 
@@ -103,4 +108,17 @@ public class AtorService {
 
    }
 
+    public void removerAtor (Integer id) throws IDNaoEncontradoException, AtorVinculadoPersonagemException {
+
+        Ator atorEncontrado = atorRepository.findById(id).orElseThrow(() -> new IDNaoEncontradoException("ator",id));
+
+        List <PersonagemAtor> personagensEncontrados = personagemRepository.findByAtor(atorEncontrado);
+
+        if (personagensEncontrados.size()>0){
+            throw  new AtorVinculadoPersonagemException();
+        }
+
+        atorRepository.deleteById(id);
+
+    }
 }

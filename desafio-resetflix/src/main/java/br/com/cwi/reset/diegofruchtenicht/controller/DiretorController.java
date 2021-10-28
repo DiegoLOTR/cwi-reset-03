@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -37,10 +38,15 @@ public class DiretorController {
     }
 
     @GetMapping ("/{id}")
-    public Diretor consultarDiretor (@PathVariable @Valid Integer id) throws  IDNaoEncontradoException {
+    public Diretor consultarDiretor (@PathVariable @NotNull Integer id) throws  IDNaoEncontradoException {
         Diretor diretorConsultado = diretorService.consultarDiretor(id);
 
         return diretorConsultado;
+    }
+
+    @DeleteMapping("/{id}")
+    public void removerDiretores (@PathVariable @NotNull Integer id) throws IDNaoEncontradoException, DiretorVinculadoFilmeException {
+        diretorService.removerDiretores(id);
     }
 
 
