@@ -50,4 +50,9 @@ public class DiretorController {
     }
 
 
+    @PutMapping("/{id}")
+    public void atualizarDiretor (@PathVariable Integer id, @RequestBody @Valid DiretorRequest diretorRequest ) throws IDNaoEncontradoException, NomeJaCadastradoException, AnoInicioAtividadeException, NomeSobrenomeException {
+        diretorService.atualizarDiretor(id,diretorRequest);
+    }
+
 }

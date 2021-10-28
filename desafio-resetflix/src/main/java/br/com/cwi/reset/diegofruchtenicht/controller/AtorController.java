@@ -57,5 +57,10 @@ public class AtorController {
         atorService.removerAtor(id);
     }
 
+    @PutMapping("/{id}")
+    public void atualizarAtor (@PathVariable Integer id, @RequestBody @Valid AtorRequest atorRequest ) throws IDNaoEncontradoException, NomeJaCadastradoException, AnoInicioAtividadeException, NomeSobrenomeException {
+       atorService.atualizarAtor(id,atorRequest);
+    }
+
 
 }

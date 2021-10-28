@@ -36,10 +36,10 @@ public class AtorService {
         }
 
         // exception nome ja cadastrado
-        for (Ator ator : atores){
-            if(ator.getNome().equals(atorRequest.getNome())) {
-                throw new NomeJaCadastradoException("ator",atorRequest.getNome());
-            }
+        Ator atorMesmoNome = atorRepository.findByNomeIgnoringCase(atorRequest.getNome());
+
+        if (atorMesmoNome != null) {
+            throw new NomeJaCadastradoException("ator", atorRequest.getNome());
         }
 
         // exception Inicio da Atividade
@@ -119,6 +119,36 @@ public class AtorService {
         }
 
         atorRepository.deleteById(id);
+
+    }
+
+    public void atualizarAtor (Integer id , AtorRequest atorRequest ) throws IDNaoEncontradoException, NomeJaCadastradoException, NomeSobrenomeException, AnoInicioAtividadeException {
+
+        if(!atorRepository.existsById(id)){
+            throw new IDNaoEncontradoException("ator",id);
+        }
+
+        Ator atorMesmoNome = atorRepository.findByNomeIgnoringCase(atorRequest.getNome());
+
+        if (atorMesmoNome != null) {
+            if (atorMesmoNome.getId() != id) {
+                throw new NomeJaCadastradoException("ator", atorRequest.getNome());
+            }
+        }
+
+        if (atorRequest.getAnoInicioAtividade()< atorRequest.getDataNascimento().getYear() ){
+            throw new AnoInicioAtividadeException("ator");
+        }
+
+        if ((atorRequest.getNome().split(" ").length < 2)){
+            throw new NomeSobrenomeException("ator");
+        }
+
+        Ator atorUpdate = new Ator(atorRequest.getNome(),atorRequest.getDataNascimento(),atorRequest.getStatusCarreira(),atorRequest.getAnoInicioAtividade());
+
+        atorUpdate.setId(id);
+
+        atorRepository.save(atorUpdate);
 
     }
 }

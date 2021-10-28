@@ -1,12 +1,14 @@
 package br.com.cwi.reset.diegofruchtenicht.request;
 
 import br.com.cwi.reset.diegofruchtenicht.model.StatusCarreira;
+
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public class AtorRequest {
-    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Nome.")
+    @NotEmpty(message = "Campo obrigatório não informado. Favor informar o campo Nome.")
     private String nome;
     @NotNull(message = "Campo obrigatório não informado. Favor informar o campo Data de Nascimento.")
     @PastOrPresent(message = "Não é possível cadastrar atores não nascidos")

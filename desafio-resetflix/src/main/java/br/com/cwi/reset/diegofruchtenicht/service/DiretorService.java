@@ -34,10 +34,10 @@ public class DiretorService {
         }
 
         // exception nome ja cadastrado
-        for (Diretor diretor : diretores){
-            if(diretor.getNome().equals(diretorRequest.getNome())) {
-                throw new NomeJaCadastradoException("diretor" , diretorRequest.getNome());
-            }
+        Diretor diretorMesmoNome = diretorRepository.findByNomeIgnoringCase(diretorRequest.getNome());
+
+        if (diretorMesmoNome != null){
+            throw new NomeJaCadastradoException("diretor" , diretorRequest.getNome());
         }
 
         // exception Inicio da Atividade
@@ -95,6 +95,36 @@ public class DiretorService {
         }
 
         diretorRepository.deleteById(id);
+
+    }
+
+    public void atualizarDiretor (Integer id , DiretorRequest diretorRequest ) throws IDNaoEncontradoException, NomeJaCadastradoException, NomeSobrenomeException, AnoInicioAtividadeException {
+
+        if(!diretorRepository.existsById(id)){
+            throw new IDNaoEncontradoException("diretor",id);
+        }
+
+        Diretor diretorMesmoNome = diretorRepository.findByNomeIgnoringCase(diretorRequest.getNome());
+
+        if (diretorMesmoNome != null) {
+            if (diretorMesmoNome.getId() != id) {
+                throw new NomeJaCadastradoException("diretor", diretorRequest.getNome());
+            }
+        }
+
+        if (diretorRequest.getAnoInicioAtividade()< diretorRequest.getDataNascimento().getYear() ){
+            throw new AnoInicioAtividadeException("diretor");
+        }
+
+        if ((diretorRequest.getNome().split(" ").length < 2)){
+            throw new NomeSobrenomeException("diretor");
+        }
+
+        Diretor diretorUpdate = new Diretor(diretorRequest.getNome(),diretorRequest.getDataNascimento(),diretorRequest.getAnoInicioAtividade());
+
+        diretorUpdate.setId(id);
+
+        diretorRepository.save(diretorUpdate);
 
     }
 }
