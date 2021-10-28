@@ -49,4 +49,12 @@ public class PersonagemService {
 
         return personagensNovos;
     }
+
+    public void removerPersonagens (List<PersonagemAtor> personagensAtor){
+
+        for (PersonagemAtor personagemParaDeletar : personagensAtor){
+            personagemRepository.delete(personagemParaDeletar);
+        }
+    }
+
 }

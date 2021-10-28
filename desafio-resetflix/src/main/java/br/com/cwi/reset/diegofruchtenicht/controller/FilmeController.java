@@ -33,4 +33,9 @@ public class FilmeController {
 
         return filmesCadastrados;
     }
+
+    @DeleteMapping("/{id}")
+    public void removerFilme (@PathVariable @Valid Integer id) throws IDNaoEncontradoException {
+        filmeService.removerFilme(id);
+    }
 }

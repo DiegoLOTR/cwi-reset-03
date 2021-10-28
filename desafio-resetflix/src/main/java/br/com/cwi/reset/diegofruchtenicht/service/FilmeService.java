@@ -121,4 +121,14 @@ public class FilmeService {
 
 
     }
+
+    public void removerFilme (Integer id) throws IDNaoEncontradoException {
+
+        Filme filmeEncontrado = filmeRepository.findById(id).orElseThrow(() -> new IDNaoEncontradoException("filme",id));
+
+        personagemService.removerPersonagens(filmeEncontrado.getPersonagens());
+
+        filmeRepository.deleteById(id);
+    }
 }
+
